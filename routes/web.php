@@ -7,7 +7,7 @@ Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
-    Route::resource('JobApplications', JobApplicationController::class);
+    Route::resource('JobApplication', JobApplicationController::class);
 
 });
 
