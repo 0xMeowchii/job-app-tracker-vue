@@ -11,7 +11,7 @@ class JobApplication extends Model
     use HasFactory;
 
     public const STATUSES = [
-        'No Response',
+        'no response',
         'withdraw',
         'waiting',
         'rejected',

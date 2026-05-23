@@ -24,24 +24,12 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
         {
-        title: 'Job Applications',
-        href: '/JobApplications',
+        title: 'Job Application',
+        href: '/JobApplication',
         icon: Users,
     },
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: FolderGit2,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
-];
 </script>
 
 <template>
@@ -63,7 +51,6 @@ const footerNavItems: NavItem[] = [
         </SidebarContent>
 
         <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>
     </Sidebar>
