@@ -1,3 +1,4 @@
+<!-- Button.vue — back to original, no changes needed -->
 <script setup lang="ts">
 import type { PrimitiveProps } from "reka-ui"
 import type { HTMLAttributes } from "vue"
