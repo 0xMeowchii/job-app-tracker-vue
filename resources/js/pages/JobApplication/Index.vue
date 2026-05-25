@@ -18,7 +18,6 @@ import DeleteApplicationModal from '@/components/JobApplication/DeleteApplicatio
 import EditApplicationModal from '@/components/JobApplication/EditApplicationModal.vue';
 import FlashMessage from '@/components/FlashMessage.vue';
 
-
 const props = defineProps({
     application: {
         type: Object,

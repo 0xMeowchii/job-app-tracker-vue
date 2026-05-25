@@ -21,6 +21,7 @@ import InputError from '@/components/InputError.vue';
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
+import {store} from "@/routes/JobApplication";
 
 const props = defineProps({
     statusOptions: {
@@ -51,7 +52,7 @@ function handleOpenChange(value: boolean) {
 }
 
 function submit() {
-    form.post(route('JobApplication.store'), {
+    form.submit(store(), {
         onSuccess: () => {
             open.value = false;
             form.reset();

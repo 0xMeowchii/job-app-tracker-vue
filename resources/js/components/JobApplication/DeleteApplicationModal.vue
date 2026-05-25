@@ -13,6 +13,7 @@ import { Button } from '../ui/button'
 
 import { router } from '@inertiajs/vue3'
 import { route } from 'ziggy-js'
+import { destroy } from '@/routes/JobApplication';
 
 
 const props = defineProps({
@@ -23,7 +24,7 @@ const props = defineProps({
 })
 
 function deleteApplication() {
-    router.delete(route('JobApplication.destroy', props.application.id))
+    router.delete(destroy(props.application.id))
 }
 </script>
 

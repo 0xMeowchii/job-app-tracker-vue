@@ -8,11 +8,12 @@ use App\Models\JobApplication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class JobApplicationController extends Controller
 {
-    public function index(Request $request): Response
+     public function index(Request $request): Response
     {
         $user = Auth::user();
 
@@ -39,12 +40,13 @@ class JobApplicationController extends Controller
             'filters' => ['search' => $search],
         ]);
     }
-
     public function store(StoreJobApplicationRequest $request): RedirectResponse
     {
         $request->user()->jobApplications()->create($request->validated());
 
-        return to_route('JobApplication.index')->with('success', 'Job Application created successfully.');
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Application created successfully.')]);
+
+        return to_route('JobApplication.index');
     }
 
     public function update(UpdateJobApplicationRequest $request, JobApplication $JobApplication): RedirectResponse
@@ -53,7 +55,9 @@ class JobApplicationController extends Controller
 
         $JobApplication->update($request->validated());
 
-        return to_route('JobApplication.index')->with('success', 'Application updated successfully.');
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Application updated successfully.')]);
+
+        return to_route('JobApplication.index');
     }
 
     public function destroy(JobApplication $JobApplication)
@@ -65,6 +69,8 @@ class JobApplicationController extends Controller
 
         $JobApplication->delete();
 
-        return to_route('JobApplication.index')->with('success', 'Application deleted successfully.');
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Application deleted successfully.')]);
+
+        return to_route('JobApplication.index');
     }
 }
