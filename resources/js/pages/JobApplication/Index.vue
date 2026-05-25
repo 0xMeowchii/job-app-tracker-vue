@@ -9,7 +9,8 @@ import {
 } from '@/components/ui/pagination';
 import { Button } from '@/components/ui/button';
 import { Head, router } from '@inertiajs/vue3';
-import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
+import { Plus } from 'lucide-vue-next';
+
 
 import SearchInput from '@/components/SearchInput.vue';
 import CreateApplicationModal from '@/components/JobApplication/CreateApplicationModal.vue';
@@ -63,7 +64,6 @@ function getPageLinks() {
 </script>
 
 <template>
-
     <Head title="Job Applications" />
     <FlashMessage />
     <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
@@ -107,14 +107,10 @@ function getPageLinks() {
                         <TableCell>
                             <EditApplicationModal :application="application" :statusOptions="props.statusOptions"
                                 :sourceOptions="props.sourceOptions">
-                                <Button variant="outline" size="icon" class="text-blue-500 ml-2">
-                                    <Pencil />
-                                </Button>
+                                <button class="text-blue-500 hover:underline">Edit</button>
                             </EditApplicationModal>
                             <DeleteApplicationModal :application="application">
-                                <Button variant="outline" size="icon" class="text-red-500 ml-2">
-                                    <Trash2 />
-                                </Button>
+                                <button class="text-red-500 hover:underline ml-2">Delete</button>
                             </DeleteApplicationModal>
                         </TableCell>
                     </TableRow>
@@ -126,9 +122,9 @@ function getPageLinks() {
                 </TableRow>
             </TableBody>
         </Table>
-
-
-        <!-- Pagination footer -->
+        
+        
+         <!-- Pagination footer -->
         <div class="flex items-center justify-between mt-auto">
 
             <!-- Showing X-Y of Z -->

@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreJobApplicationRequest;
+use App\Http\Requests\UpdateJobApplicationRequest;
+use App\Models\JobApplication;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-<<<<<<< Updated upstream
-=======
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
->>>>>>> Stashed changes
 
 class JobApplicationController extends Controller
 {
-    public function index()
+     public function index(Request $request): Response
     {
-<<<<<<< Updated upstream
-        return inertia('JobApplication');
-=======
         $user = Auth::user();
 
         $search = $request->input('search');
@@ -42,7 +40,6 @@ class JobApplicationController extends Controller
             'filters' => ['search' => $search],
         ]);
     }
-
     public function store(StoreJobApplicationRequest $request): RedirectResponse
     {
         $request->user()->jobApplications()->create($request->validated());
@@ -75,6 +72,5 @@ class JobApplicationController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Application deleted successfully.')]);
 
         return to_route('JobApplication.index');
->>>>>>> Stashed changes
     }
 }
