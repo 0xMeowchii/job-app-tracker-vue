@@ -20,7 +20,6 @@ import InputError from '@/components/InputError.vue';
 
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
-import { route } from 'ziggy-js';
 import {store} from "@/routes/JobApplication";
 
 const props = defineProps({
@@ -29,7 +28,7 @@ const props = defineProps({
         required: true,
     },
     sourceOptions: {
-        type: Array,
+        type: Array as () => { id: number, name: string }[],
         required: true,
     },
 })
@@ -42,7 +41,7 @@ const form = useForm({
     location: '',
     application_date: new Date().toISOString().split('T')[0],
     application_status: '',
-    source: '',
+    job_source_id: '',
     remarks: '',
 });
 
@@ -123,20 +122,23 @@ function submit() {
 
                         <div class="grid gap-2">
                             <Label for="application_source">Source</Label>
-                            <Select v-model="form.source" id="application_source">
+                            <Select v-if="sourceOptions.length" v-model="form.job_source_id" id="application_source">
                                 <SelectTrigger class="w-full">
                                     <SelectValue placeholder="Select a Source" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Source</SelectLabel>
-                                        <SelectItem v-for="source in (sourceOptions as string[])" :value="source" :key="source">
-                                            {{ source }}
+                                        <SelectItem v-for="source in sourceOptions" :value="String(source.id)" :key="source.id">
+                                            {{ source.name }}
                                         </SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
-                            <InputError :message="form.errors.source" />
+                            <p v-else class="text-sm text-muted-foreground">
+                                Add a source in Settings before creating an application.
+                            </p>
+                            <InputError :message="form.errors.job_source_id" />
                         </div>
                     </div>
                 </div>

@@ -102,7 +102,7 @@ function getPageLinks() {
                         <TableCell>{{ application.location }}</TableCell>
                         <TableCell>{{ new Date(application.application_date).toLocaleDateString('en-US') }}</TableCell>
                         <TableCell>{{ application.application_status }}</TableCell>
-                        <TableCell>{{ application.source }}</TableCell>
+                        <TableCell>{{ application.job_source?.name }}</TableCell>
                         <TableCell>{{ application.remarks }}</TableCell>
                         <TableCell>
                             <EditApplicationModal :application="application" :statusOptions="props.statusOptions"

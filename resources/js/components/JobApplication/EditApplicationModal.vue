@@ -20,7 +20,6 @@ import InputError from '@/components/InputError.vue';
 
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
-import { route } from 'ziggy-js';
 import {update} from "@/routes/JobApplication";
 
 const props = defineProps({
@@ -32,7 +31,8 @@ const props = defineProps({
             location: string,
             application_date: string,
             application_status: string,
-            source: string,
+            job_source_id: number,
+            job_source?: { id: number, name: string } | null,
             remarks: string,
         },
         required: true,
@@ -42,14 +42,22 @@ const props = defineProps({
         required: true,
     },
     sourceOptions: {
-        type: Array,
+        type: Array as () => { id: number, name: string }[],
         required: true,
     },
 })
 
 const open = ref(false);
 
-const form = useForm({...props.application, application_date: props.application.application_date.split('T')[0] });
+const form = useForm({
+    company_name: props.application.company_name,
+    job_title: props.application.job_title,
+    location: props.application.location,
+    application_date: props.application.application_date.split('T')[0],
+    application_status: props.application.application_status,
+    job_source_id: String(props.application.job_source_id),
+    remarks: props.application.remarks,
+});
 
 function handleOpenChange(value: boolean) {
     open.value = value;
@@ -127,20 +135,20 @@ function submit() {
 
                         <div class="grid gap-2">
                             <Label for="application_source">Source</Label>
-                            <Select v-model="form.source" id="application_source">
+                            <Select v-model="form.job_source_id" id="application_source">
                                 <SelectTrigger class="w-full">
                                     <SelectValue placeholder="Select a Source" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Source</SelectLabel>
-                                        <SelectItem v-for="source in (sourceOptions as string[])" :value="source" :key="source">
-                                            {{ source }}
+                                        <SelectItem v-for="source in sourceOptions" :value="String(source.id)" :key="source.id">
+                                            {{ source.name }}
                                         </SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
-                            <InputError :message="form.errors.source" />
+                            <InputError :message="form.errors.job_source_id" />
                         </div>
                     </div>
                 </div>

@@ -18,13 +18,6 @@ class JobApplication extends Model
         'hired',
     ];
 
-    public const SOURCES = [
-        'facebook',
-        'indeed',
-        'linkedin',
-        'jobstreet',
-    ];
-
     /**
      * @var array<int, string>
      */
@@ -35,7 +28,7 @@ class JobApplication extends Model
         'location',
         'application_date',
         'application_status',
-        'source',
+        'job_source_id',
         'remarks',
     ];
 
@@ -49,5 +42,10 @@ class JobApplication extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function jobSource(): BelongsTo
+    {
+        return $this->belongsTo(JobSource::class);
     }
 }

@@ -25,6 +25,16 @@ class DashboardController extends Controller
             'count' => (int) ($statusCounts[$status] ?? 0),
         ]);
 
+        $sourceChartData = $user->jobSources()
+            ->withCount('jobApplications')
+            ->orderBy('name')
+            ->get()
+            ->map(fn ($source): array => [
+                'source' => $source->name,
+                'count' => (int) $source->job_applications_count,
+            ])
+            ->values();
+
         return Inertia::render('Dashboard', [
             'totals' => [
                 'total' => $total,
@@ -34,6 +44,7 @@ class DashboardController extends Controller
                 'no_response' => (int) ($statusCounts['no response'] ?? 0),
             ],
             'chartData' => $chartData,
+            'sourceChartData' => $sourceChartData,
         ]);
     }
 }

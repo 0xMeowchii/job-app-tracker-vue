@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Settings\JobSourceController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\SecurityController;
 use Illuminate\Auth\Middleware\RequirePassword;
@@ -10,6 +11,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('settings/job-sources', [JobSourceController::class, 'index'])->name('job-sources.index');
+    Route::post('settings/job-sources', [JobSourceController::class, 'store'])->name('job-sources.store');
+    Route::patch('settings/job-sources/{job_source}', [JobSourceController::class, 'update'])->name('job-sources.update');
+    Route::delete('settings/job-sources/{job_source}', [JobSourceController::class, 'destroy'])->name('job-sources.destroy');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

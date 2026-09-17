@@ -13,19 +13,23 @@ use Inertia\Response;
 
 class JobApplicationController extends Controller
 {
-     public function index(Request $request): Response
+    public function index(Request $request): Response
     {
         $user = Auth::user();
 
         $search = $request->input('search');
-        
+
         $applications = JobApplication::query()
             ->where('user_id', $user->id)
+            ->with('jobSource:id,name')
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('company_name', 'like', "%{$search}%")
                         ->orWhere('job_title', 'like', "%{$search}%")
-                        ->orWhere('location', 'like', "%{$search}%");
+                        ->orWhere('location', 'like', "%{$search}%")
+                        ->orWhereHas('jobSource', function ($sourceQuery) use ($search) {
+                            $sourceQuery->where('name', 'like', "%{$search}%");
+                        });
                 });
             })
             ->orderByDesc('application_date')
@@ -36,10 +40,11 @@ class JobApplicationController extends Controller
         return inertia('JobApplication/Index', [
             'application' => $applications,
             'statusOptions' => JobApplication::STATUSES,
-            'sourceOptions' => JobApplication::SOURCES,
+            'sourceOptions' => $user->jobSources()->orderBy('name')->get(['id', 'name']),
             'filters' => ['search' => $search],
         ]);
     }
+
     public function store(StoreJobApplicationRequest $request): RedirectResponse
     {
         $request->user()->jobApplications()->create($request->validated());

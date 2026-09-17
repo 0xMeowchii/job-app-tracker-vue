@@ -24,13 +24,17 @@ class UpdateJobApplicationRequest extends FormRequest
      */
     public function rules(): array
     {
-         return [
+        return [
             'company_name' => ['required', 'string', 'max:255'],
             'job_title' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
             'application_date' => ['required', 'date'],
             'application_status' => ['required', Rule::in(JobApplication::STATUSES)],
-            'source' => ['required', Rule::in(JobApplication::SOURCES)],
+            'job_source_id' => [
+                'required',
+                'integer',
+                Rule::exists('job_sources', 'id')->where('user_id', $this->user()->id),
+            ],
             'remarks' => ['nullable', 'string', 'max:2000'],
         ];
     }
