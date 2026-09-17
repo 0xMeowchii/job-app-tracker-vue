@@ -38,4 +38,9 @@ class User extends Authenticatable implements PasskeyUser
     {
         return $this->hasMany(JobApplication::class);
     }
+
+    public function jobSources()
+    {
+        return $this->hasMany(JobSource::class);
+    }
 }
