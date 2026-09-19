@@ -24,7 +24,6 @@ class JobApplicationFactory extends Factory
             'location' => fake()->city(),
             'application_date' => fake()->date(),
             'application_status' => fake()->randomElement(JobApplication::STATUSES),
-            'remarks' => fake()->optional()->sentence(),
         ];
     }
 

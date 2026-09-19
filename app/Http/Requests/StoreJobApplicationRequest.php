@@ -35,7 +35,6 @@ class StoreJobApplicationRequest extends FormRequest
                 'integer',
                 Rule::exists('job_sources', 'id')->where('user_id', $this->user()->id),
             ],
-            'remarks' => ['nullable', 'string', 'max:2000'],
         ];
     }
 }

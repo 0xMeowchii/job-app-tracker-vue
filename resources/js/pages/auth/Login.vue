@@ -16,7 +16,7 @@ import { request } from '@/routes/password';
 defineOptions({
     layout: {
         title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
+        description: 'Track your applications. Follow your progress. Land your next opportunity.',
     },
 });
 

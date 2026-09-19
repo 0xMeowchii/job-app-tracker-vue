@@ -14,6 +14,7 @@ import { Plus } from 'lucide-vue-next';
 
 import SearchInput from '@/components/SearchInput.vue';
 import CreateApplicationModal from '@/components/JobApplication/CreateApplicationModal.vue';
+import ViewApplicationModal from '@/components/JobApplication/ViewApplicationModal.vue';
 import DeleteApplicationModal from '@/components/JobApplication/DeleteApplicationModal.vue';
 import EditApplicationModal from '@/components/JobApplication/EditApplicationModal.vue';
 import FlashMessage from '@/components/FlashMessage.vue';
@@ -90,7 +91,7 @@ function getPageLinks() {
                     <TableHead>Date</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Source</TableHead>
-                    <TableHead>Remarks</TableHead>
+                    <TableHead>Details</TableHead>
                     <TableHead>Actions</TableHead>
                 </TableRow>
             </TableHeader>
@@ -103,7 +104,11 @@ function getPageLinks() {
                         <TableCell>{{ new Date(application.application_date).toLocaleDateString('en-US') }}</TableCell>
                         <TableCell>{{ application.application_status }}</TableCell>
                         <TableCell>{{ application.job_source?.name }}</TableCell>
-                        <TableCell>{{ application.remarks }}</TableCell>
+                        <TableCell>
+                            <ViewApplicationModal :application="application">
+                                <button class="text-blue-500 hover:underline">View</button>
+                            </ViewApplicationModal>
+                        </TableCell>
                         <TableCell>
                             <EditApplicationModal :application="application" :statusOptions="props.statusOptions"
                                 :sourceOptions="props.sourceOptions">

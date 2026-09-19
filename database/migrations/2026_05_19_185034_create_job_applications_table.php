@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('job_title');
             $table->string('location');
             $table->date('application_date');
-            $table->string('application_status')->default('No Response');
-            $table->string('source')->default('indeed');
-            $table->text('remarks')->nullable();
+            $table->string('application_status');
+            $table->string('source');
+            $table->text('job_description')->nullable();
+            $table->json('job_url')->default('[]');
             $table->timestamps();
 
             $table->index(['user_id', 'application_status']);

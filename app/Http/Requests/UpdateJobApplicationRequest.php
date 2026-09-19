@@ -25,17 +25,20 @@ class UpdateJobApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_name' => ['required', 'string', 'max:255'],
-            'job_title' => ['required', 'string', 'max:255'],
-            'location' => ['required', 'string', 'max:255'],
-            'application_date' => ['required', 'date'],
-            'application_status' => ['required', Rule::in(JobApplication::STATUSES)],
+            'company_name' => ['sometimes', 'required', 'string', 'max:255'],
+            'job_title' => ['sometimes', 'required', 'string', 'max:255'],
+            'location' => ['sometimes', 'required', 'string', 'max:255'],
+            'application_date' => ['sometimes', 'required', 'date'],
+            'application_status' => ['sometimes', 'required', Rule::in(JobApplication::STATUSES)],
             'job_source_id' => [
+                'sometimes',
                 'required',
                 'integer',
                 Rule::exists('job_sources', 'id')->where('user_id', $this->user()->id),
             ],
-            'remarks' => ['nullable', 'string', 'max:2000'],
+            'job_description' => ['nullable', 'string'],
+            'job_url' => ['nullable', 'array'],
+            'job_url.*' => ['string', 'url'],
         ];
     }
 }
