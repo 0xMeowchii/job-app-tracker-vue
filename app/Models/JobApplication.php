@@ -29,13 +29,15 @@ class JobApplication extends Model
         'application_date',
         'application_status',
         'job_source_id',
-        'remarks',
+        'job_description',
+        'job_url',
     ];
 
     protected function casts(): array
     {
         return [
             'application_date' => 'date',
+            'job_url' => 'array',
         ];
     }
 

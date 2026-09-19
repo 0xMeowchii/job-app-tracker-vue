@@ -42,7 +42,6 @@ const form = useForm({
     application_date: new Date().toISOString().split('T')[0],
     application_status: '',
     job_source_id: '',
-    remarks: '',
 });
 
 function handleOpenChange(value: boolean) {
@@ -142,13 +141,6 @@ function submit() {
                         </div>
                     </div>
                 </div>
-                <div class="mt-1">
-                    <label for="remarks">Remarks</label>
-                    <Input id="remarks" v-model="form.remarks" />
-                    <InputError :message="form.errors.remarks" />
-                </div>
-
-
 
                 <DialogFooter class="gap-2">
                     <DialogClose as-child>

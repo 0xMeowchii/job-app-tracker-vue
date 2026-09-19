@@ -20,7 +20,7 @@ import InputError from '@/components/InputError.vue';
 
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
-import {update} from "@/routes/JobApplication";
+import { update } from "@/routes/JobApplication";
 
 const props = defineProps({
     application: {
@@ -33,7 +33,6 @@ const props = defineProps({
             application_status: string,
             job_source_id: number,
             job_source?: { id: number, name: string } | null,
-            remarks: string,
         },
         required: true,
     },
@@ -56,7 +55,6 @@ const form = useForm({
     application_date: props.application.application_date.split('T')[0],
     application_status: props.application.application_status,
     job_source_id: String(props.application.job_source_id),
-    remarks: props.application.remarks,
 });
 
 function handleOpenChange(value: boolean) {
@@ -152,13 +150,6 @@ function submit() {
                         </div>
                     </div>
                 </div>
-                <div class="mt-1">
-                    <label for="remarks">Remarks</label>
-                    <Input id="remarks" v-model="form.remarks" />
-                    <InputError :message="form.errors.remarks" />
-                </div>
-
-
 
                 <DialogFooter class="gap-2">
                     <DialogClose as-child>
